@@ -1,6 +1,8 @@
 # Bouncy Box
 **Author**: S|{oto
+
 **CTF**:  DamCTF
+
 **Description**: *"This game is extremely fun. So fun that some people have been playing it for over 3 years!"*
 
 bouncy-box.chals.damctf.xyz
@@ -11,17 +13,17 @@ bouncy-box.chals.damctf.xyz
 
 After you play the game, you're presented with a login popup to save your score.  When looking at the popup, my first instinct was to check if it was vulnerable to SQL injection.  Putting a`"`in the "Password" field only gets you a "*Incorrect username or password!*" message, but `'` leads to...
 
-<img src="/Users/lucaswilbur/Library/Application Support/typora-user-images/Screen Shot 2021-11-06 at 5.29.51 PM.png" alt="HTML Error" style="zoom:40%;" />
+<img src="login1.png" alt="login1" style="zoom:40%;" />
 
 It seems, then, that this *can* be exploited with SQL, and it's using `'`s as its delimiter of choice!  One classic SQL injection line is `'OR''='`, which escapes out of the string where the password would normally be stored, then ORs it against `'='`, which always evaluates to true.  In other words, the password will always be evaluated as correct, assuming that the server's password checking isn't well made.
 
 So, if we put `'OR''='`into the password line, even without anything in the Username field, it will log you into the account of **boxy_mcbounce**.
 
-<img src="/Users/lucaswilbur/Library/Application Support/typora-user-images/Screen Shot 2021-11-06 at 5.38.36 PM.png" alt="HTML Error" style="zoom:35%;" />
+<img src="profile.png" alt="profile" style="zoom:35%;" />
 
 Now, it seems like you've already won, but if you click on "Free flag!", you're just led to *another* login page.
 
-<img src="/Users/lucaswilbur/Library/Application Support/typora-user-images/Screen Shot 2021-11-06 at 5.40.59 PM.png" alt="HTML Error" style="zoom:40%;" />
+<img src="login2.png" alt="login2" style="zoom:40%;" />
 
 With testing, we can confirm that this login is setup correctly, and cannot be bypassed with SQL injection.  So, to get around this, we need to go back to the ***first*** login popup, which we know had SQL vulnerabilities.  There, we can use SQL injection to get information about other users' usernames and passwords.  Once we have those, we'll be able to input them into the second of the two logins and actually get the flag.
 
