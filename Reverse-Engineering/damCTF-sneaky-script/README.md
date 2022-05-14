@@ -1,6 +1,6 @@
 # sneaky-script
 **Author of Challenge**: captainGeech\
-**Author of Writeup**: trash_panda \
+**Author of Writeup**: bread b4nk \
 **CTF**: [DamCTF 2021](https://damctf.xyz/)\
 **Description**: \
 we recovered a malicious script from a victim environment. Can you figure out what it did, and if any sensitive information was exfiltrated? We were able to export some PCAP data from their environment as well.\
